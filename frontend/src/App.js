@@ -14,7 +14,7 @@ function App() {
     setNotes(prevNotes => {
       return [...prevNotes, note]
     })
-    url = `${baseUrl}/notes/`
+    const url = `${baseUrl}/notes/`
     fetch(url, {
       method: 'POST',
       headers: {
@@ -30,7 +30,7 @@ function App() {
 
 
   const handleDelete = async (note) => {
-    url = `${baseUrl}/notes/delete/${note.id}/`
+    const url = `${baseUrl}/notes/delete/${note.id}/`
     await fetch(url, { method: 'DELETE' });
     setNotes(prevNotes => {
       return prevNotes.filter(n => {
@@ -42,7 +42,7 @@ function App() {
 
 
   const updateNote = (id, newTitle) => {
-    url = `${baseUrl}/notes/update/${id}/`
+    const url = `${baseUrl}/notes/update/${id}/`
     fetch(url, {
       method: 'PATCH',
       headers: {
@@ -59,7 +59,7 @@ function App() {
 
 
   const fetchData = useCallback(async () => {
-    url = `${baseUrl}/notes/`
+    const url = `${baseUrl}/notes/`
     const response = await fetch(url);
     const data = await response.json();
     setNotes(data);
