@@ -5,6 +5,8 @@ import './index.css'
 
 function App() {
   const [notes, setNotes] = useState([])
+  const baseURL = process.env.REACT_APP_API_URL
+
 
   const addNote = (note) => {
     setNotes(prevNotes => {
