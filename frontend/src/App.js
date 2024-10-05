@@ -14,7 +14,8 @@ function App() {
     setNotes(prevNotes => {
       return [...prevNotes, note]
     })
-    fetch(`${baseUrl}/notes/`, {
+    url = `${baseUrl}/notes/`
+    fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -24,23 +25,25 @@ function App() {
         content: note.content,
       })
     })
+    console.log(`Add note: ${url}`)
   }
 
 
   const handleDelete = async (note) => {
-    await fetch(`${baseUrl}/notes/delete/${note.id}/`, { method: 'DELETE' });
+    url = `${baseUrl}/notes/delete/${note.id}/`
+    await fetch(url, { method: 'DELETE' });
     setNotes(prevNotes => {
       return prevNotes.filter(n => {
         return n.id !== note.id
       })
     })
-
+    console.log(`Delete note: ${url}`)
   }
 
 
   const updateNote = (id, newTitle) => {
-
-    fetch(`${baseUrl}/notes/update/${id}/`, {
+    url = `${baseUrl}/notes/update/${id}/`
+    fetch(url, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -49,17 +52,18 @@ function App() {
         title: newTitle
       })
     })
+    console.log(`Update note: ${url}`)
 
   }
 
 
 
   const fetchData = useCallback(async () => {
-    const response = await fetch(
-      `${baseUrl}/notes/`
-    );
+    url = `${baseUrl}/notes/`
+    const response = await fetch(url);
     const data = await response.json();
     setNotes(data);
+    console.log(`Get notes: ${url}`)
   }, [baseUrl]);
 
 
