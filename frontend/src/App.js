@@ -5,14 +5,16 @@ import './index.css'
 
 function App() {
   const [notes, setNotes] = useState([])
-  const baseURL = process.env.REACT_APP_API_URL
+  const apiUrl = '/choreo-apis/djangoreactcrud/backend/v1'
+  const baseUrl = process.env.REACT_APP_API_URL ? process.env.REACT_APP_API_URL : apiUrl
+
 
 
   const addNote = (note) => {
     setNotes(prevNotes => {
       return [...prevNotes, note]
     })
-    fetch('http://127.0.0.1:8000/notes/', {
+    fetch(`${baseUrl}/notes/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -26,10 +28,10 @@ function App() {
 
 
   const handleDelete = async (note) => {
-    await fetch(`http://127.0.0.1:8000/notes/delete/${note.id}/`, { method: 'DELETE' });
+    await fetch(`${baseUrl}/notes/delete/${note.id}/`, { method: 'DELETE' });
     setNotes(prevNotes => {
       return prevNotes.filter(n => {
-        return n.id != note.id
+        return n.id !== note.id
       })
     })
 
@@ -38,7 +40,7 @@ function App() {
 
   const updateNote = (id, newTitle) => {
 
-    fetch(`http://127.0.0.1:8000/notes/update/${id}/`, {
+    fetch(`${baseUrl}/notes/update/${id}/`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -54,11 +56,11 @@ function App() {
 
   const fetchData = useCallback(async () => {
     const response = await fetch(
-      "http://127.0.0.1:8000/notes/"
+      `${baseUrl}/notes/`
     );
     const data = await response.json();
     setNotes(data);
-  }, []);
+  }, [baseUrl]);
 
 
   useEffect(() => {
