@@ -26,6 +26,7 @@ function App() {
       })
     })
     console.log(`Add note: ${url}`)
+    console.log(notes)
   }
 
 
